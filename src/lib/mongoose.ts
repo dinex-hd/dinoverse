@@ -8,7 +8,7 @@ if (!MONGODB_URI) {
   console.warn('MONGODB_URI is not set. API routes requiring DB will fail until configured.');
 }
 
-let globalWithMongoose = global as typeof global & {
+const globalWithMongoose = global as typeof global & {
   _mongooseConn?: Promise<typeof mongoose>;
 };
 

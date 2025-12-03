@@ -52,12 +52,12 @@ export async function POST(req: NextRequest) {
           from: FROM_EMAIL,
           to: [TO_EMAIL],
           subject: `[New Contact] ${data.subject}`,
-          reply_to: data.email,
+          replyTo: data.email,
           html: emailContent,
           text: `New contact submission\n\nName: ${data.name}\nEmail: ${data.email}\nService: ${data.service || '-'}\n\nMessage:\n${data.message}\n\nSubmitted at: ${new Date().toISOString()}`,
         });
-        emailQueued = !!result?.id;
-        emailId = result?.id;
+        emailQueued = !!(result as any)?.data?.id || !!(result as any)?.id;
+        emailId = (result as any)?.data?.id || (result as any)?.id;
       } catch (e: any) {
         emailQueued = false;
         // Capture more detailed error info

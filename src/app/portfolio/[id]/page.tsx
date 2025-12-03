@@ -5,14 +5,15 @@ import { connectToDatabase } from '@/lib/mongoose';
 import { Portfolio } from '@/models/Portfolio';
 
 interface ProjectPageProps {
-  params: {
+  params: Promise<{
     id: string;
-  };
+  }>;
 }
 
 export default async function ProjectPage({ params }: ProjectPageProps) {
   await connectToDatabase();
-  const doc = await Portfolio.findById(params.id).lean();
+  const { id } = await params;
+  const doc = await Portfolio.findById(id).lean();
 
   if (!doc) {
     notFound();

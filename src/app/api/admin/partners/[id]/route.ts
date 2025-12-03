@@ -13,7 +13,8 @@ const PartnerSchema = z.object({
   active: z.boolean().optional(),
 });
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
@@ -22,7 +23,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       ...body,
       order: body.order != null ? Number(body.order) : undefined,
     });
-    const updated = await Partner.findByIdAndUpdate(params.id, data, { new: true });
+    const updated = await Partner.findByIdAndUpdate(id, data, { new: true });
     if (!updated) return NextResponse.json({ ok: false, message: 'Partner not found' }, { status: 404 });
     return NextResponse.json({ ok: true, item: updated });
   } catch (e: any) {
@@ -33,10 +34,11 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   await connectToDatabase();
-  const deleted = await Partner.findByIdAndDelete(params.id);
+  const deleted = await Partner.findByIdAndDelete(id);
   if (!deleted) return NextResponse.json({ ok: false, message: 'Partner not found' }, { status: 404 });
   return NextResponse.json({ ok: true });
 }
