@@ -11,14 +11,15 @@ const QuoteUpdateSchema = z.object({
   active: z.boolean().optional(),
 });
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
     const body = await req.json();
     const validated = QuoteUpdateSchema.parse(body);
     const updated = await Quote.findByIdAndUpdate(
-      params.id,
+      id,
       {
         ...validated,
         author: validated.author ?? undefined,
@@ -39,11 +40,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
-    const deleted = await Quote.findByIdAndDelete(params.id);
+    const deleted = await Quote.findByIdAndDelete(id);
     if (!deleted) {
       return NextResponse.json({ ok: false, message: 'Quote not found' }, { status: 404 });
     }

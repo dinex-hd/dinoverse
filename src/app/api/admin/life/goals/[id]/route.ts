@@ -12,7 +12,8 @@ const GoalUpdateSchema = z.object({
   focusArea: z.enum(['trading', 'business', 'health', 'personal']).optional(),
 });
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
@@ -23,7 +24,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       description: validated.description ?? undefined,
       due: validated.due ? new Date(validated.due) : undefined,
     };
-    const updated = await Goal.findByIdAndUpdate(params.id, data, { new: true });
+    const updated = await Goal.findByIdAndUpdate(id, data, { new: true });
     if (!updated) {
       return NextResponse.json({ ok: false, message: 'Goal not found' }, { status: 404 });
     }
@@ -37,11 +38,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
-    const deleted = await Goal.findByIdAndDelete(params.id);
+    const deleted = await Goal.findByIdAndDelete(id);
     if (!deleted) {
       return NextResponse.json({ ok: false, message: 'Goal not found' }, { status: 404 });
     }

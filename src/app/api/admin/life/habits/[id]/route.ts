@@ -14,7 +14,8 @@ const HabitUpdateSchema = z.object({
   active: z.boolean().optional(),
 });
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
@@ -27,7 +28,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
       }
     }
     const updated = await Habit.findByIdAndUpdate(
-      params.id,
+      id,
       {
         ...validated,
         description: validated.description ?? undefined,
@@ -50,11 +51,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
-    const deleted = await Habit.findByIdAndDelete(params.id);
+    const deleted = await Habit.findByIdAndDelete(id);
     if (!deleted) {
       return NextResponse.json({ ok: false, message: 'Habit not found' }, { status: 404 });
     }

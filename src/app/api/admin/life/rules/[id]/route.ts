@@ -13,14 +13,15 @@ const RuleUpdateSchema = z.object({
   order: z.number().optional(),
 });
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
     const body = await req.json();
     const validated = RuleUpdateSchema.parse(body);
     const updated = await Rule.findByIdAndUpdate(
-      params.id,
+      id,
       {
         ...validated,
         description: validated.description ?? undefined,
@@ -41,11 +42,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
-    const deleted = await Rule.findByIdAndDelete(params.id);
+    const deleted = await Rule.findByIdAndDelete(id);
     if (!deleted) {
       return NextResponse.json({ ok: false, message: 'Rule not found' }, { status: 404 });
     }

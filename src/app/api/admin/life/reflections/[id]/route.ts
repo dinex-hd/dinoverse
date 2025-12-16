@@ -15,7 +15,8 @@ const ReflectionUpdateSchema = z.object({
   tags: z.array(z.string()).optional(),
 });
 
-export async function PUT(req: NextRequest, { params }: { params: { id: string } }) {
+export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
@@ -29,7 +30,7 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
     }
     const data: any = { ...validated };
     if (validated.date) data.date = new Date(validated.date);
-    const updated = await Reflection.findByIdAndUpdate(params.id, data, { new: true });
+    const updated = await Reflection.findByIdAndUpdate(id, data, { new: true });
     if (!updated) {
       return NextResponse.json({ ok: false, message: 'Reflection not found' }, { status: 404 });
     }
@@ -43,11 +44,12 @@ export async function PUT(req: NextRequest, { params }: { params: { id: string }
   }
 }
 
-export async function DELETE(req: NextRequest, { params }: { params: { id: string } }) {
+export async function DELETE(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   if (!isRequestAuthorized(req)) return NextResponse.json({ ok: false }, { status: 401 });
   try {
     await connectToDatabase();
-    const deleted = await Reflection.findByIdAndDelete(params.id);
+    const deleted = await Reflection.findByIdAndDelete(id);
     if (!deleted) {
       return NextResponse.json({ ok: false, message: 'Reflection not found' }, { status: 404 });
     }
