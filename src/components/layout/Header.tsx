@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { mainNavigation, adminNavigation } from '@/lib/navigation';
+import { mainNavigation } from '@/lib/navigation';
 
 export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -146,19 +146,6 @@ export default function Header() {
                         className={`block rounded-full px-4 py-3 text-base font-semibold leading-7 text-white/90 hover:text-white transition-all duration-200 ${
                           pathname === item.href ? 'bg-white/10' : 'hover:bg-white/5'
                         }`}
-                        onClick={closeMenu}
-                        title={item.description}
-                      >
-                        {item.name}
-                      </Link>
-                    ))}
-                  </div>
-                  <div className="pt-4">
-                    {adminNavigation.map((item, idx) => (
-                      <Link
-                        key={item.name}
-                        href={item.href}
-                        className="block rounded-full px-4 py-3 text-base font-semibold leading-7 text-white bg-white/10 hover:bg-white/15 transition-all duration-200"
                         onClick={closeMenu}
                         title={item.description}
                       >

@@ -16,6 +16,7 @@ import {
 } from '@heroicons/react/24/outline';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 
 const skills = [
   {
@@ -104,72 +105,254 @@ export default function AboutPage() {
   return (
     <div className="bg-white">
       {/* Hero Section */}
-      <div className="relative overflow-hidden bg-gradient-to-br from-[#010333] via-[#1a1f4a] to-[#010333]">
-        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-5"></div>
-        <div className="absolute inset-0 bg-gradient-to-t from-[#010333]/50 to-transparent"></div>
+      <div className="relative overflow-hidden bg-gradient-to-br from-[#010333] via-[#1a1f4a] to-[#010333] min-h-screen flex items-center">
+        {/* Animated Grid Background */}
+        <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
         
-        <div className="relative z-10 px-6 pt-32 pb-20 sm:pt-40 sm:pb-28 lg:px-8">
-          <div className="mx-auto max-w-4xl">
-            {/* Badge */}
-            <motion.div
-              className="inline-flex items-center gap-2 rounded-full bg-white/10 px-4 py-2 text-sm font-medium text-white/90 ring-1 ring-white/20 backdrop-blur-md mb-8"
-              initial={{ opacity: 0, y: -20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6 }}
-            >
-              <HeartIcon className="h-5 w-5 text-[#2642fe]" />
-              About Dinoverse
-            </motion.div>
+        {/* Tech Particles Effect */}
+        <div className="absolute inset-0 overflow-hidden">
+          {[...Array(20)].map((_, i) => {
+            const randomX = Math.random() * 100;
+            const randomY = Math.random() * 100;
+            const randomDuration = Math.random() * 3 + 2;
+            const randomDelay = Math.random() * 2;
+            return (
+              <motion.div
+                key={i}
+                className="absolute w-1 h-1 bg-[#2642fe] rounded-full"
+                style={{
+                  left: `${randomX}%`,
+                  top: `${randomY}%`,
+                }}
+                initial={{
+                  opacity: 0,
+                  scale: 0,
+                }}
+                animate={{
+                  y: [0, -100, 0],
+                  opacity: [0, 0.6, 0],
+                  scale: [0, 1, 0],
+                }}
+                transition={{
+                  duration: randomDuration,
+                  repeat: Infinity,
+                  delay: randomDelay,
+                  ease: "easeInOut",
+                }}
+              />
+            );
+          })}
+        </div>
 
-            {/* Main heading */}
-            <motion.h1
-              className="text-5xl font-extrabold tracking-tight sm:text-7xl mb-6"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.2 }}
-            >
-              <span className="bg-gradient-to-r from-white via-white to-[#2642fe] bg-clip-text text-transparent drop-shadow-[0_2px_10px_rgba(38,66,254,0.25)]">
-                Crafting Digital
-              </span>
-              <br />
-              <span className="text-3xl sm:text-4xl font-bold text-white/90 mt-4 block">
-                Experiences That Matter
-              </span>
-            </motion.h1>
+        {/* Gradient Orbs */}
+        <motion.div
+          className="absolute top-1/4 left-1/4 w-96 h-96 bg-[#2642fe]/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, 100, 0],
+            y: [0, 50, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+        <motion.div
+          className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"
+          animate={{
+            x: [0, -100, 0],
+            y: [0, -50, 0],
+            scale: [1, 1.2, 1],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-            {/* Intro paragraph */}
-            <motion.p
-              className="text-xl sm:text-2xl font-medium text-white/80 leading-relaxed max-w-3xl"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8, delay: 0.4 }}
-            >
-              Hi, I'm <span className="text-[#2642fe] font-semibold">Dinaol Sisay</span> — a Computer Science graduate from Dilla University (2025), passionate developer, designer, and creator dedicated to turning ideas into beautiful, functional digital experiences.
-            </motion.p>
-
-            {/* Floating decorative elements */}
-            <div className="absolute top-20 right-10 hidden lg:block">
-              {[0, 1, 2].map((i) => (
+        <div className="relative z-10 px-6 py-32 lg:px-8 w-full">
+          <div className="mx-auto max-w-7xl">
+            <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
+              {/* Left Column: Text Content */}
+              <div className="space-y-8">
+                {/* Founder Badge */}
                 <motion.div
-                  key={i}
-                  className="absolute"
-                  initial={{ opacity: 0, scale: 0 }}
+                  className="inline-flex items-center gap-3 rounded-full bg-gradient-to-r from-[#2642fe]/20 to-cyan-500/20 px-6 py-3 text-sm font-semibold text-white/90 ring-2 ring-[#2642fe]/50 backdrop-blur-md shadow-lg shadow-[#2642fe]/20"
+                  initial={{ opacity: 0, x: -50 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <SparklesIcon className="h-5 w-5 text-[#2642fe] animate-pulse" />
+                  <span className="bg-gradient-to-r from-white to-[#2642fe] bg-clip-text text-transparent">
+                    Founder & Creator
+                  </span>
+                  <span className="text-[#2642fe]">•</span>
+                  <span className="text-white/70">Dinoverse</span>
+                </motion.div>
+
+                {/* Main heading with Tech Effect */}
+                <div className="space-y-4">
+                  <motion.h1
+                    className="text-5xl font-black tracking-tight sm:text-6xl lg:text-7xl"
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8, delay: 0.2 }}
+                  >
+                    <span className="block bg-gradient-to-r from-white via-[#2642fe] to-cyan-400 bg-clip-text text-transparent drop-shadow-[0_0_30px_rgba(38,66,254,0.5)]">
+                      Hi, I'm
+                    </span>
+                    <motion.span
+                      className="block mt-2 bg-gradient-to-r from-[#2642fe] via-cyan-400 to-white bg-clip-text text-transparent"
+                      animate={{
+                        backgroundPosition: ["0%", "100%"],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "reverse",
+                      }}
+                      style={{
+                        backgroundSize: "200%",
+                      }}
+                    >
+                      Dinaol Sisay
+                    </motion.span>
+                  </motion.h1>
+
+                  {/* Tech Tagline */}
+                  <motion.div
+                    className="flex items-center gap-3 text-2xl sm:text-3xl font-bold text-white/90"
+                    initial={{ opacity: 0, x: -30 }}
+                    animate={{ opacity: 1, x: 0 }}
+                    transition={{ duration: 0.8, delay: 0.4 }}
+                  >
+                    <CodeBracketIcon className="h-8 w-8 text-[#2642fe]" />
+                    <span>Building the Future</span>
+                    <CodeBracketIcon className="h-8 w-8 text-cyan-400" />
+                  </motion.div>
+                </div>
+
+                {/* Intro paragraph */}
+                <motion.p
+                  className="text-lg sm:text-xl font-medium text-white/80 leading-relaxed max-w-2xl"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.6 }}
+                >
+                  Computer Science graduate from{' '}
+                  <span className="text-[#2642fe] font-semibold">Dilla University (2025)</span>. 
+                  Passionate developer, designer, and creator dedicated to turning ideas into beautiful, 
+                  functional digital experiences that make a difference.
+                </motion.p>
+
+                {/* Tech Stack Pills */}
+                <motion.div
+                  className="flex flex-wrap gap-3"
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.8 }}
+                >
+                  {['Full-Stack', 'Designer', 'Creator', 'Innovator'].map((tag, i) => (
+                    <motion.span
+                      key={tag}
+                      className="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-sm font-medium text-white/80 backdrop-blur-sm hover:bg-[#2642fe]/20 hover:border-[#2642fe]/50 transition-all cursor-default"
+                      whileHover={{ scale: 1.05, y: -2 }}
+                      initial={{ opacity: 0, scale: 0.8 }}
+                      animate={{ opacity: 1, scale: 1 }}
+                      transition={{ delay: 0.9 + i * 0.1 }}
+                    >
+                      {tag}
+                    </motion.span>
+                  ))}
+                </motion.div>
+              </div>
+
+              {/* Right Column: Portrait with Tech Frame */}
+              <motion.div
+                className="relative"
+                initial={{ opacity: 0, scale: 0.8, x: 50 }}
+                animate={{ opacity: 1, scale: 1, x: 0 }}
+                transition={{ duration: 1, delay: 0.3, type: "spring" }}
+              >
+                {/* Glowing Border Effect */}
+                <div className="absolute -inset-4 bg-gradient-to-r from-[#2642fe] via-cyan-400 to-[#2642fe] rounded-3xl opacity-20 blur-2xl animate-pulse"></div>
+                <div className="absolute -inset-2 bg-gradient-to-r from-[#2642fe]/50 via-cyan-400/50 to-[#2642fe]/50 rounded-3xl opacity-30"></div>
+
+                {/* Main Image Container */}
+                <div className="relative rounded-3xl border-2 border-white/20 bg-gradient-to-br from-white/5 to-white/0 p-1 backdrop-blur-xl shadow-2xl">
+                  <div className="relative aspect-[3/4] overflow-hidden rounded-2xl">
+                    <Image
+                      src="/hero.png"
+                      alt="Dinaol Sisay - Founder of Dinoverse"
+                      fill
+                      className="object-cover grayscale-[20%] hover:grayscale-0 transition-all duration-700"
+                      priority
+                    />
+                    {/* Overlay Gradient */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#010333]/80 via-transparent to-transparent"></div>
+                  </div>
+
+                  {/* Floating Tech Icons */}
+                  <motion.div
+                    className="absolute -top-6 -right-6 w-16 h-16 rounded-full bg-gradient-to-br from-[#2642fe] to-cyan-400 flex items-center justify-center shadow-lg shadow-[#2642fe]/50"
+                    animate={{
+                      y: [0, -10, 0],
+                      rotate: [0, 5, -5, 0],
+                    }}
+                    transition={{
+                      duration: 3,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                    }}
+                  >
+                    <RocketLaunchIcon className="h-8 w-8 text-white" />
+                  </motion.div>
+
+                  <motion.div
+                    className="absolute -bottom-6 -left-6 w-14 h-14 rounded-full bg-gradient-to-br from-cyan-400 to-[#2642fe] flex items-center justify-center shadow-lg shadow-cyan-400/50"
+                    animate={{
+                      y: [0, 10, 0],
+                      rotate: [0, -5, 5, 0],
+                    }}
+                    transition={{
+                      duration: 4,
+                      repeat: Infinity,
+                      ease: "easeInOut",
+                      delay: 0.5,
+                    }}
+                  >
+                    <SparklesIcon className="h-7 w-7 text-white" />
+                  </motion.div>
+
+                  {/* Founder Badge on Image */}
+                  <div className="absolute bottom-4 left-1/2 -translate-x-1/2 px-6 py-3 rounded-full bg-gradient-to-r from-[#2642fe]/90 to-cyan-500/90 backdrop-blur-md border border-white/20 shadow-xl">
+                    <p className="text-white font-bold text-lg">Dinaol Sisay</p>
+                    <p className="text-white/90 text-sm font-medium">Founder • Dinoverse</p>
+                  </div>
+                </div>
+
+                {/* Code-like Decorative Elements */}
+                <motion.div
+                  className="absolute -right-12 top-1/4 hidden lg:block"
                   animate={{
-                    opacity: [0, 1, 0],
-                    scale: [0, 1, 0],
-                    x: [0, 50, 0],
-                    y: [0, -50, 0],
+                    opacity: [0.3, 0.7, 0.3],
                   }}
                   transition={{
-                    duration: 4,
-                    delay: i * 1.3,
+                    duration: 2,
                     repeat: Infinity,
-                    ease: 'easeInOut',
+                    ease: "easeInOut",
                   }}
                 >
-                  <StarIcon className="w-6 h-6 text-[#2642fe]/40" />
+                  <div className="text-[#2642fe]/30 font-mono text-xs space-y-1">
+                    <div>{'<Founder>'}</div>
+                    <div className="pl-4">{'<Innovator />'}</div>
+                    <div className="pl-4">{'<Creator />'}</div>
+                    <div>{'</Founder>'}</div>
+                  </div>
                 </motion.div>
-              ))}
+              </motion.div>
             </div>
           </div>
         </div>

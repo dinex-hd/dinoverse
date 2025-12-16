@@ -163,9 +163,6 @@ export default function ServiceOverview() {
     <section className="bg-white">
       <div className="mx-auto max-w-7xl px-6 pt-12 pb-24 lg:px-8">
         <div className="mx-auto max-w-3xl text-center">
-          <p className="inline-flex items-center gap-2 rounded-full bg-[var(--brand-primary)]/10 px-4 py-2 text-sm font-medium text-[var(--brand-primary)]">
-            Services Powered by MongoDB
-          </p>
           <h2 className="mt-4 text-4xl font-bold tracking-tight text-[#010333] sm:text-5xl">What I Build</h2>
           <p className="mt-4 text-lg leading-8 text-gray-600">
             Every card below comes from the Services collection — update them in the admin panel to change what visitors see instantly.

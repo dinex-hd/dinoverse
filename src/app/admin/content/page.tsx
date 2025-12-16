@@ -341,20 +341,20 @@ export default function AdminContentPage() {
   ] as const;
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-4 sm:px-6 lg:px-8 py-8 text-white">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#010333]">Homepage Content Manager</h1>
-          <p className="mt-1 text-sm text-gray-600">Control all sections of your homepage</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-cyan-300 to-blue-400 bg-clip-text text-transparent">Homepage Content Manager</h1>
+          <p className="mt-1 text-sm text-gray-400">Control all sections of your homepage</p>
         </div>
       </div>
 
       {/* Status Messages */}
-      {error && <div className="p-3 rounded-md bg-red-50 border border-red-200 text-sm text-red-700">{error}</div>}
-      {success && <div className="p-3 rounded-md bg-green-50 border border-green-200 text-sm text-green-700">{success}</div>}
+      {error && <div className="p-4 rounded-lg bg-red-500/20 border border-red-500/30 text-sm text-red-200 backdrop-blur-sm">{error}</div>}
+      {success && <div className="p-4 rounded-lg bg-green-500/20 border border-green-500/30 text-sm text-green-200 backdrop-blur-sm">{success}</div>}
 
       {/* Tabs */}
-      <div className="border-b border-gray-200">
+      <div className="border-b border-gray-700">
         <nav className="-mb-px flex space-x-4 overflow-x-auto">
           {tabs.map((tab) => {
             const Icon = tab.icon;
@@ -364,8 +364,8 @@ export default function AdminContentPage() {
                 onClick={() => setActiveTab(tab.id)}
                 className={`whitespace-nowrap flex items-center gap-2 py-4 px-1 border-b-2 font-medium text-sm transition-colors ${
                   activeTab === tab.id
-                    ? 'border-[#2642fe] text-[#2642fe]'
-                    : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
+                    ? 'border-cyan-400 text-cyan-200'
+                    : 'border-transparent text-gray-400 hover:text-gray-200 hover:border-gray-600'
                 }`}
               >
                 <Icon className="h-5 w-5" />
@@ -376,12 +376,12 @@ export default function AdminContentPage() {
         </nav>
       </div>
 
-      {loading && <div className="text-center py-12 text-gray-500">Loading...</div>}
+      {loading && <div className="text-center py-12 text-gray-400">Loading...</div>}
 
       {/* Hero Section */}
       {activeTab === 'hero' && !loading && (
-        <div className="bg-white rounded-xl border border-gray-200 p-6">
-          <h2 className="text-lg font-semibold text-[#010333] mb-6">Hero Section</h2>
+        <div className="bg-gray-900/60 rounded-xl border border-gray-700 p-6 backdrop-blur-sm">
+          <h2 className="text-lg font-semibold text-white mb-6">Hero Section</h2>
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -390,34 +390,34 @@ export default function AdminContentPage() {
             className="space-y-6"
           >
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Badge Text</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Badge Text</label>
               <input
                 type="text"
                 value={hero.badge}
                 onChange={(e) => setHero({ ...hero, badge: e.target.value })}
-                className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                 placeholder="Full‑stack development • Creative design"
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Heading</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Heading</label>
               <input
                 type="text"
                 value={hero.heading}
                 onChange={(e) => setHero({ ...hero, heading: e.target.value })}
-                className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                 placeholder="Web & Mobile Apps. Brand‑Ready Design."
               />
             </div>
 
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Description</label>
+              <label className="block text-sm font-medium text-gray-300 mb-2">Description</label>
               <textarea
                 rows={3}
                 value={hero.description}
                 onChange={(e) => setHero({ ...hero, description: e.target.value })}
-                className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                 placeholder="At Dinoverse, clients get production‑ready web and mobile applications..."
               />
             </div>

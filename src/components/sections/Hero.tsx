@@ -60,10 +60,22 @@ export default function Hero() {
     };
   }, []);
 
+  useEffect(() => {
+    if (loading) return;
+    if (vantaInstance.current?.resize) {
+      vantaInstance.current.resize();
+    } else {
+      window.dispatchEvent(new Event('resize'));
+    }
+  }, [loading, heroData]);
+
   const content = heroData;
 
   return (
-    <section ref={vantaRef} className="relative isolate overflow-hidden bg-[var(--brand-dark)]">
+    <section
+      ref={vantaRef}
+      className="relative isolate flex min-h-[90vh] w-full items-center overflow-hidden bg-[var(--brand-dark)]"
+    >
       {/* Ambient background using your brand blues */}
       <div className="absolute inset-0 -z-10">
         <div className="absolute -top-40 left-1/2 h-[38rem] w-[38rem] -translate-x-1/2 rounded-full bg-[var(--brand-primary)]/25 blur-3xl" />
@@ -75,8 +87,8 @@ export default function Hero() {
       <div className="pointer-events-none absolute inset-0 z-0 bg-[var(--brand-dark)]/50 backdrop-blur-sm" />
 
       {/* Content */}
-      <div className="relative z-10 px-6 pt-28 pb-20 sm:pt-36 sm:pb-28 lg:px-8">
-        <div className="mx-auto max-w-2xl text-center">
+      <div className="relative z-10 w-full px-6 py-24 sm:py-32 lg:px-8">
+        <div className="mx-auto max-w-3xl text-center">
         {loading && (
           <div className="mx-auto max-w-md rounded-2xl border border-white/10 bg-white/5 px-3 py-2 text-sm text-white/60">
             Loading hero content…

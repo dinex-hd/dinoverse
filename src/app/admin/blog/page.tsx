@@ -195,23 +195,23 @@ export default function AdminBlogPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="px-4 sm:px-6 lg:px-8 py-8 space-y-6 text-white">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#010333]">Blog Posts</h1>
-          <p className="mt-1 text-sm text-gray-600">Manage your blog articles and content</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-cyan-300 to-blue-400 bg-clip-text text-transparent">Blog Posts</h1>
+          <p className="mt-1 text-sm text-gray-400">Manage your blog articles and content</p>
         </div>
         <button
           onClick={openNew}
-          className="px-4 py-2 rounded-lg bg-[#2642fe] text-white text-sm font-medium hover:bg-[#1e35d8] transition-colors flex items-center gap-2"
+          className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30 flex items-center gap-2"
         >
           <PlusIcon className="h-5 w-5" />
           New Post
         </button>
       </div>
 
-      {error && <div className="p-3 rounded-md bg-red-50 border border-red-200 text-sm text-red-700">{error}</div>}
-      {success && <div className="p-3 rounded-md bg-green-50 border border-green-200 text-sm text-green-700">{success}</div>}
+      {error && <div className="p-4 rounded-lg bg-red-500/20 border border-red-500/30 text-sm text-red-200 backdrop-blur-sm">{error}</div>}
+      {success && <div className="p-4 rounded-lg bg-green-500/20 border border-green-500/30 text-sm text-green-200 backdrop-blur-sm">{success}</div>}
 
       <div className="flex flex-col sm:flex-row gap-4">
         <input
@@ -219,25 +219,25 @@ export default function AdminBlogPage() {
           placeholder="Search posts..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="flex-1 px-4 py-2 border-2 border-gray-200 rounded-lg text-[#010333] placeholder:text-gray-400"
+          className="flex-1 px-4 py-2 bg-gray-900/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
         />
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value as any)}
-          className="px-4 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+          className="px-4 py-2 bg-gray-900/60 border border-gray-700 rounded-lg text-white focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
         >
-          <option value="all">All Status</option>
-          <option value="published">Published</option>
-          <option value="draft">Draft</option>
+          <option className="bg-gray-900" value="all">All Status</option>
+          <option className="bg-gray-900" value="published">Published</option>
+          <option className="bg-gray-900" value="draft">Draft</option>
         </select>
       </div>
 
-      {loading && items.length === 0 && <div className="text-center py-12 text-gray-500">Loading blog posts...</div>}
+      {loading && items.length === 0 && <div className="text-center py-12 text-gray-400">Loading blog posts...</div>}
 
       {!loading && items.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
-          <DocumentTextIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-500">No blog posts yet. Create your first one!</p>
+        <div className="text-center py-12 bg-gray-900/60 rounded-2xl border border-gray-700 backdrop-blur-sm">
+          <DocumentTextIcon className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+          <p className="text-gray-400">No blog posts yet. Create your first one!</p>
         </div>
       )}
 
@@ -245,24 +245,24 @@ export default function AdminBlogPage() {
         {items.map((item) => (
           <div
             key={item._id}
-            className={`rounded-xl border-2 ${item.published ? 'border-green-200 bg-green-50/30' : 'border-gray-200'} bg-white p-5`}
+            className={`rounded-2xl border ${item.published ? 'border-green-500/40 bg-green-500/5' : 'border-gray-700'} bg-gray-900/60 backdrop-blur-sm p-5 shadow-lg`}
           >
             <div className="flex items-start justify-between gap-4">
               <div className="flex-1">
                 <div className="flex items-center gap-3 mb-2">
-                  <h3 className="text-lg font-semibold text-[#010333]">{item.title}</h3>
+                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
                   {item.featured && (
-                    <span className="px-2 py-1 rounded text-xs bg-blue-50 text-[#2642fe] border border-blue-100">Featured</span>
+                    <span className="px-2 py-1 rounded-full text-xs bg-blue-500/20 text-blue-200 border border-blue-500/30">Featured</span>
                   )}
                   {!item.published && (
-                    <span className="px-2 py-1 rounded text-xs bg-gray-100 text-gray-600">Draft</span>
+                    <span className="px-2 py-1 rounded-full text-xs bg-gray-700 text-gray-200 border border-gray-600">Draft</span>
                   )}
                   {!item.active && (
-                    <span className="px-2 py-1 rounded text-xs bg-red-50 text-red-600">Inactive</span>
+                    <span className="px-2 py-1 rounded-full text-xs bg-red-500/20 text-red-200 border border-red-500/30">Inactive</span>
                   )}
                 </div>
-                <p className="text-sm text-gray-600 mb-3 line-clamp-2">{item.excerpt}</p>
-                <div className="flex items-center gap-4 text-xs text-gray-500">
+                <p className="text-sm text-gray-300 mb-3 line-clamp-2">{item.excerpt}</p>
+                <div className="flex items-center gap-4 text-xs text-gray-400">
                   <span>{item.category}</span>
                   <span>•</span>
                   <span>{new Date(item.publishedAt).toLocaleDateString()}</span>
@@ -281,7 +281,7 @@ export default function AdminBlogPage() {
                   <Link
                     href={`/blog/${item.slug}`}
                     target="_blank"
-                    className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700"
+                    className="p-2 rounded-lg border border-gray-700 hover:bg-gray-800 text-gray-200 transition-colors"
                     title="View"
                   >
                     <EyeIcon className="h-4 w-4" />
@@ -289,14 +289,14 @@ export default function AdminBlogPage() {
                 )}
                 <button
                   onClick={() => openEdit(item)}
-                  className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700"
+                  className="p-2 rounded-lg border border-blue-500/30 bg-blue-500/10 text-blue-200 hover:bg-blue-500/20 transition-colors"
                   title="Edit"
                 >
                   <PencilIcon className="h-4 w-4" />
                 </button>
                 <button
                   onClick={() => remove(item._id)}
-                  className="p-2 rounded-lg border border-red-200 hover:bg-red-50 text-red-600"
+                  className="p-2 rounded-lg border border-red-500/30 bg-red-500/10 text-red-200 hover:bg-red-500/20 transition-colors"
                   title="Delete"
                 >
                   <TrashIcon className="h-4 w-4" />
@@ -308,13 +308,13 @@ export default function AdminBlogPage() {
       </div>
 
       {showForm && (
-        <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center p-4" onClick={() => { setEditing(null); setShowForm(false); }}>
-          <div className="bg-white w-full max-w-4xl rounded-2xl p-6 border border-gray-200 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-xl font-bold text-[#010333] mb-6">{editing ? 'Edit Blog Post' : 'New Blog Post'}</h2>
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => { setEditing(null); setShowForm(false); }}>
+          <div className="bg-gray-900 w-full max-w-4xl rounded-2xl p-6 border border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <h2 className="text-xl font-bold bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent mb-6">{editing ? 'Edit Blog Post' : 'New Blog Post'}</h2>
             <form onSubmit={save} className="space-y-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Title *</label>
                   <input
                     type="text"
                     value={form.title}
@@ -324,17 +324,17 @@ export default function AdminBlogPage() {
                         setForm((f) => ({ ...f, slug: generateSlug(e.target.value) }));
                       }
                     }}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Slug *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Slug *</label>
                   <input
                     type="text"
                     value={form.slug}
                     onChange={(e) => setForm({ ...form, slug: e.target.value.toLowerCase().replace(/[^a-z0-9-]/g, '-') })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     required
                     pattern="[a-z0-9-]+"
                   />
@@ -343,24 +343,24 @@ export default function AdminBlogPage() {
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Excerpt *</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Excerpt *</label>
                 <textarea
                   rows={2}
                   value={form.excerpt}
                   onChange={(e) => setForm({ ...form, excerpt: e.target.value })}
-                  className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                  className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   placeholder="Brief summary..."
                   required
                 />
               </div>
 
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-2">Content *</label>
+                <label className="block text-sm font-medium text-gray-300 mb-2">Content *</label>
                 <textarea
                   rows={12}
                   value={form.content}
                   onChange={(e) => setForm({ ...form, content: e.target.value })}
-                  className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333] font-mono text-sm"
+                  className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 font-mono text-sm"
                   placeholder="Full blog post content..."
                   required
                 />
@@ -369,23 +369,23 @@ export default function AdminBlogPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Category *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Category *</label>
                   <input
                     type="text"
                     value={form.category}
                     onChange={(e) => setForm({ ...form, category: e.target.value })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="e.g., Web Development"
                     required
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Tags (comma-separated)</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Tags (comma-separated)</label>
                   <input
                     type="text"
                     value={form.tags}
                     onChange={(e) => setForm({ ...form, tags: e.target.value })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="Next.js, React, TypeScript"
                   />
                 </div>
@@ -393,22 +393,22 @@ export default function AdminBlogPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Cover Image URL</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Cover Image URL</label>
                   <input
                     type="url"
                     value={form.image}
                     onChange={(e) => setForm({ ...form, image: e.target.value })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="https://..."
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Read Time</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Read Time</label>
                   <input
                     type="text"
                     value={form.readTime}
                     onChange={(e) => setForm({ ...form, readTime: e.target.value })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="5 min read"
                   />
                 </div>
@@ -416,21 +416,21 @@ export default function AdminBlogPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Author Name</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Author Name</label>
                   <input
                     type="text"
                     value={form.authorName}
                     onChange={(e) => setForm({ ...form, authorName: e.target.value })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Author Avatar URL</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Author Avatar URL</label>
                   <input
                     type="url"
                     value={form.authorAvatar}
                     onChange={(e) => setForm({ ...form, authorAvatar: e.target.value })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     placeholder="https://..."
                   />
                 </div>
@@ -438,35 +438,35 @@ export default function AdminBlogPage() {
 
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Publish Date</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Publish Date</label>
                   <input
                     type="date"
                     value={form.publishedAt}
                     onChange={(e) => setForm({ ...form, publishedAt: e.target.value })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Order</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Order</label>
                   <input
                     type="number"
                     value={form.order}
                     onChange={(e) => setForm({ ...form, order: Number(e.target.value) })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     min={0}
                   />
                 </div>
                 <div className="flex flex-col justify-center gap-2">
-                  <label className="flex items-center gap-2 text-sm text-gray-700">
-                    <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} />
+                  <label className="flex items-center gap-2 text-sm text-gray-300">
+                    <input type="checkbox" checked={form.featured} onChange={(e) => setForm({ ...form, featured: e.target.checked })} className="w-4 h-4 rounded border-gray-700 bg-gray-800 text-blue-500 focus:ring-2 focus:ring-blue-500/20" />
                     Featured
                   </label>
-                  <label className="flex items-center gap-2 text-sm text-gray-700">
-                    <input type="checkbox" checked={form.published} onChange={(e) => setForm({ ...form, published: e.target.checked })} />
+                  <label className="flex items-center gap-2 text-sm text-gray-300">
+                    <input type="checkbox" checked={form.published} onChange={(e) => setForm({ ...form, published: e.target.checked })} className="w-4 h-4 rounded border-gray-700 bg-gray-800 text-blue-500 focus:ring-2 focus:ring-blue-500/20" />
                     Published
                   </label>
-                  <label className="flex items-center gap-2 text-sm text-gray-700">
-                    <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} />
+                  <label className="flex items-center gap-2 text-sm text-gray-300">
+                    <input type="checkbox" checked={form.active} onChange={(e) => setForm({ ...form, active: e.target.checked })} className="w-4 h-4 rounded border-gray-700 bg-gray-800 text-blue-500 focus:ring-2 focus:ring-blue-500/20" />
                     Active
                   </label>
                 </div>
@@ -479,11 +479,11 @@ export default function AdminBlogPage() {
                     setEditing(null);
                     setShowForm(false);
                   }}
-                  className="px-4 py-2 rounded-lg border border-gray-200 hover:bg-gray-50"
+                  className="px-4 py-2 rounded-lg border border-gray-700 text-gray-300 hover:bg-gray-800 transition-colors"
                 >
                   Cancel
                 </button>
-                <button type="submit" disabled={loading} className="px-4 py-2 rounded-lg bg-[#2642fe] text-white hover:bg-[#1e35d8] disabled:opacity-50">
+                <button type="submit" disabled={loading} className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600 disabled:opacity-50 transition-all shadow-lg shadow-blue-500/30">
                   {loading ? 'Saving...' : editing ? 'Update' : 'Create'}
                 </button>
               </div>

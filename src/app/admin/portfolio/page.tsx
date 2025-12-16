@@ -215,15 +215,15 @@ export default function AdminPortfolioPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="px-4 sm:px-6 lg:px-8 py-8 space-y-6 text-white">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#010333]">Portfolio Manager</h1>
-          <p className="mt-1 text-sm text-gray-600">Manage your projects and showcase your work</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-cyan-300 to-blue-400 bg-clip-text text-transparent">Portfolio Manager</h1>
+          <p className="mt-1 text-sm text-gray-400">Manage your projects and showcase your work</p>
         </div>
         <button
           onClick={openNew}
-          className="px-4 py-2 rounded-lg bg-[#2642fe] text-white text-sm font-medium hover:bg-[#1e35d8] transition-colors flex items-center gap-2"
+          className="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-sm font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all shadow-lg shadow-blue-500/30 flex items-center gap-2"
         >
           <PlusIcon className="h-5 w-5" />
           New Project
@@ -231,8 +231,8 @@ export default function AdminPortfolioPage() {
       </div>
 
       {/* Status Messages */}
-      {error && <div className="p-3 rounded-md bg-red-50 border border-red-200 text-sm text-red-700">{error}</div>}
-      {success && <div className="p-3 rounded-md bg-green-50 border border-green-200 text-sm text-green-700">{success}</div>}
+      {error && <div className="p-4 rounded-lg bg-red-500/20 border border-red-500/30 text-sm text-red-200 backdrop-blur-sm">{error}</div>}
+      {success && <div className="p-4 rounded-lg bg-green-500/20 border border-green-500/30 text-sm text-green-200 backdrop-blur-sm">{success}</div>}
 
       {/* Search */}
       <div>
@@ -241,19 +241,19 @@ export default function AdminPortfolioPage() {
           placeholder="Search projects..."
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          className="w-full max-w-md px-4 py-2 border-2 border-gray-200 rounded-lg text-[#010333] placeholder:text-gray-400"
+          className="w-full max-w-md px-4 py-2 bg-gray-900/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
         />
       </div>
 
       {/* Portfolio Grid */}
       {loading && items.length === 0 && (
-        <div className="text-center py-12 text-gray-500">Loading projects...</div>
+        <div className="text-center py-12 text-gray-400">Loading projects...</div>
       )}
 
       {!loading && items.length === 0 && (
-        <div className="text-center py-12 bg-white rounded-xl border border-gray-200">
-          <PhotoIcon className="h-12 w-12 text-gray-400 mx-auto mb-4" />
-          <p className="text-gray-500">No projects yet. Create your first one!</p>
+        <div className="text-center py-12 bg-gray-900/60 rounded-2xl border border-gray-700 backdrop-blur-sm">
+          <PhotoIcon className="h-12 w-12 text-gray-500 mx-auto mb-4" />
+          <p className="text-gray-400">No projects yet. Create your first one!</p>
         </div>
       )}
 
@@ -261,26 +261,26 @@ export default function AdminPortfolioPage() {
         {items.map((item) => (
           <div
             key={item._id}
-            className={`bg-white rounded-xl border-2 ${
-              item.featured ? 'border-[#2642fe]' : 'border-gray-200'
-            } overflow-hidden hover:shadow-lg transition-shadow`}
+            className={`rounded-2xl border ${
+              item.featured ? 'border-blue-500/40 bg-blue-500/5' : 'border-gray-700'
+            } bg-gray-900/60 backdrop-blur-sm overflow-hidden hover:shadow-xl transition-shadow`}
           >
             {/* Image */}
-            <div className="aspect-video bg-gradient-to-br from-blue-100 to-purple-100 flex items-center justify-center relative">
+            <div className="aspect-video bg-gradient-to-br from-[#0a0e27] via-gray-900 to-[#0a0e27] flex items-center justify-center relative">
               {item.image ? (
-                <img src={item.image} alt={item.title} className="w-full h-full object-cover" />
+                <img src={item.image} alt={item.title} className="w-full h-full object-cover opacity-90" />
               ) : (
-                <PhotoIcon className="h-16 w-16 text-gray-400" />
+                <PhotoIcon className="h-16 w-16 text-gray-600" />
               )}
               {item.featured && (
-                <div className="absolute top-2 right-2 bg-[#2642fe] text-white px-2 py-1 rounded text-xs font-semibold">
+                <div className="absolute top-2 right-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-2 py-1 rounded text-xs font-semibold shadow">
                   Featured
                 </div>
               )}
               <div className={`absolute top-2 left-2 px-2 py-1 rounded text-xs font-semibold ${
-                item.status === 'Completed' ? 'bg-green-100 text-green-800' :
-                item.status === 'In Progress' ? 'bg-blue-100 text-blue-800' :
-                'bg-yellow-100 text-yellow-800'
+                item.status === 'Completed' ? 'bg-green-500/30 text-green-100 border border-green-500/30' :
+                item.status === 'In Progress' ? 'bg-blue-500/30 text-blue-100 border border-blue-500/30' :
+                'bg-yellow-500/30 text-yellow-100 border border-yellow-500/30'
               }`}>
                 {item.status}
               </div>
@@ -290,15 +290,15 @@ export default function AdminPortfolioPage() {
             <div className="p-4">
               <div className="flex items-start justify-between mb-2">
                 <div className="flex-1">
-                  <h3 className="text-lg font-semibold text-[#010333]">{item.title}</h3>
-                  <p className="text-xs text-gray-500 mt-1">{item.category}</p>
+                  <h3 className="text-lg font-semibold text-white">{item.title}</h3>
+                  <p className="text-xs text-gray-400 mt-1">{item.category}</p>
                 </div>
                 {!item.active && (
-                  <span className="px-2 py-1 rounded text-xs bg-gray-100 text-gray-600">Inactive</span>
+                  <span className="px-2 py-1 rounded-full text-xs bg-gray-700 text-gray-300 border border-gray-600">Inactive</span>
                 )}
               </div>
 
-              <p className="text-sm text-gray-600 mb-3 line-clamp-2">{item.description}</p>
+              <p className="text-sm text-gray-300 mb-3 line-clamp-2">{item.description}</p>
 
               {/* Technologies */}
               {item.technologies && item.technologies.length > 0 && (
@@ -306,13 +306,13 @@ export default function AdminPortfolioPage() {
                   {item.technologies.slice(0, 3).map((tech, idx) => (
                     <span
                       key={idx}
-                      className="px-2 py-0.5 rounded text-xs bg-gray-100 text-gray-700"
+                      className="px-2 py-0.5 rounded-full text-xs bg-gray-800 text-gray-200 border border-gray-700"
                     >
                       {tech}
                     </span>
                   ))}
                   {item.technologies.length > 3 && (
-                    <span className="px-2 py-0.5 rounded text-xs bg-gray-100 text-gray-700">
+                    <span className="px-2 py-0.5 rounded-full text-xs bg-gray-800 text-gray-200 border border-gray-700">
                       +{item.technologies.length - 3}
                     </span>
                   )}
@@ -320,18 +320,18 @@ export default function AdminPortfolioPage() {
               )}
 
               {/* Actions */}
-              <div className="flex items-center justify-between gap-2 pt-3 border-t border-gray-100">
+              <div className="flex items-center justify-between gap-2 pt-3 border-t border-gray-800">
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => openEdit(item)}
-                    className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700"
+                    className="p-2 rounded-lg border border-blue-500/30 bg-blue-500/10 text-blue-200 hover:bg-blue-500/20 transition-colors"
                     title="Edit"
                   >
                     <PencilIcon className="h-4 w-4" />
                   </button>
                   <button
                     onClick={() => remove(item._id)}
-                    className="p-2 rounded-lg border border-red-200 hover:bg-red-50 text-red-600"
+                    className="p-2 rounded-lg border border-red-500/30 bg-red-500/10 text-red-200 hover:bg-red-500/20 transition-colors"
                     title="Delete"
                   >
                     <TrashIcon className="h-4 w-4" />
@@ -343,7 +343,7 @@ export default function AdminPortfolioPage() {
                       href={item.liveUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700"
+                      className="p-2 rounded-lg border border-cyan-500/40 bg-cyan-500/10 text-cyan-200 hover:bg-cyan-500/20 transition-colors"
                       title="View Live"
                     >
                       <EyeIcon className="h-4 w-4" />
@@ -354,7 +354,7 @@ export default function AdminPortfolioPage() {
                       href={item.githubUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-2 rounded-lg border border-gray-200 hover:bg-gray-50 text-gray-700"
+                      className="p-2 rounded-lg border border-gray-700 bg-gray-800 text-gray-200 hover:bg-gray-700 transition-colors"
                       title="View Code"
                     >
                       <CodeBracketIcon className="h-4 w-4" />
@@ -369,11 +369,11 @@ export default function AdminPortfolioPage() {
 
       {/* Form Modal */}
       {showForm && (
-        <div className="fixed inset-0 z-50 bg-black/30 flex items-center justify-center p-4" onClick={() => { setEditing(null); setShowForm(false); }}>
-          <div className="bg-white w-full max-w-3xl rounded-2xl p-6 border border-gray-200 max-h-[90vh] overflow-y-auto" onClick={(e) => e.stopPropagation()}>
-            <h2 className="text-xl font-bold text-[#010333] mb-6">{editing ? 'Edit Project' : 'New Project'}</h2>
+        <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4" onClick={() => { setEditing(null); setShowForm(false); }}>
+          <div className="bg-gray-900 w-full max-w-3xl rounded-2xl p-6 border border-gray-700 max-h-[90vh] overflow-y-auto shadow-2xl" onClick={(e) => e.stopPropagation()}>
+            <h2 className="text-xl font-bold bg-gradient-to-r from-white to-cyan-300 bg-clip-text text-transparent mb-6">{editing ? 'Edit Project' : 'New Project'}</h2>
             <div className="mb-6">
-              <p className="text-sm font-medium text-gray-700 mb-3">Choose a project type</p>
+              <p className="text-sm font-medium text-gray-300 mb-3">Choose a project type</p>
               <div className="flex flex-wrap gap-2">
                 {(Object.keys(postTypes) as PostTypeKey[]).map((type) => (
                   <button
@@ -391,8 +391,8 @@ export default function AdminPortfolioPage() {
                     }
                     className={`px-4 py-2 rounded-lg border text-sm font-medium transition-all ${
                       form.postType === type
-                        ? 'border-[#2642fe] bg-blue-50 text-[#2642fe]'
-                        : 'border-gray-200 text-gray-700 hover:border-gray-300'
+                        ? 'border-blue-500 bg-blue-500/20 text-blue-200 shadow-blue-500/20 shadow'
+                        : 'border-gray-700 text-gray-300 hover:border-gray-600 bg-gray-800/60'
                     }`}
                   >
                     {postTypes[type].label}
@@ -400,24 +400,23 @@ export default function AdminPortfolioPage() {
                 ))}
               </div>
             </div>
-            <p className="text-xs text-gray-500 mb-4">
-              Fields below adjust based on the selected type. For example, graphics projects emphasize tools & deliverables,
-              while apps focus on tech stack and deployment.
+            <p className="text-xs text-gray-400 mb-4">
+              Fields adjust based on the selected type. Graphics emphasize deliverables/tools; apps focus on stack and deployment.
             </p>
             <form onSubmit={save} className="space-y-4">
               {form.postType === 'graphics' && (
-                <div className="rounded-lg border border-dashed border-gray-200 p-4 text-xs text-gray-500">
+                <div className="rounded-lg border border-dashed border-gray-700 bg-gray-800/60 p-4 text-xs text-gray-300">
                   Tip: Include file formats (PNG, PDF, SVG) and tools (Figma, Illustrator). Use description to explain the brief.
                 </div>
               )}
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="md:col-span-2">
-                  <label className="block text-sm font-medium text-gray-700 mb-2">Title *</label>
+                  <label className="block text-sm font-medium text-gray-300 mb-2">Title *</label>
                   <input
                     type="text"
                     value={form.title}
                     onChange={(e) => setForm({ ...form, title: e.target.value })}
-                    className="w-full px-3 py-2 border-2 border-gray-200 rounded-lg text-[#010333]"
+                    className="w-full px-3 py-2 bg-gray-800/60 border border-gray-700 rounded-lg text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
                     required
                   />
                 </div>

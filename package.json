@@ -9,6 +9,7 @@
   "dependencies": {
     "@heroicons/react": "^2.2.0",
     "@lottiefiles/dotlottie-web": "^0.36.1",
+    "date-fns": "^4.1.0",
     "framer-motion": "^12.23.25",
     "mongoose": "^8.7.3",
     "next": "^15.5.7",

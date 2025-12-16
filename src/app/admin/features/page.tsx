@@ -160,24 +160,24 @@ export default function AdminFeaturesPage() {
   }
 
   return (
-    <div className="space-y-6">
+    <div className="px-4 sm:px-6 lg:px-8 py-8 space-y-6 text-white">
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-[#010333]">Site Features</h1>
-          <p className="mt-1 text-sm text-gray-600">Control the “Everything in one place” section on the homepage.</p>
+          <h1 className="text-3xl font-bold bg-gradient-to-r from-white via-cyan-300 to-blue-400 bg-clip-text text-transparent">Site Features</h1>
+          <p className="mt-1 text-sm text-gray-400">Control the “Everything in one place” section on the homepage.</p>
         </div>
         <button
           onClick={openNew}
-          className="inline-flex items-center gap-2 rounded-xl bg-[#2642fe] px-4 py-2 text-sm font-semibold text-white shadow hover:bg-[#1f36d1]"
+          className="inline-flex items-center gap-2 rounded-xl bg-gradient-to-r from-blue-500 to-cyan-500 px-4 py-2 text-sm font-semibold text-white shadow-lg shadow-blue-500/30 hover:from-blue-600 hover:to-cyan-600"
         >
           <PlusIcon className="h-4 w-4" />
           New Feature
         </button>
       </div>
 
-      {error && <div className="rounded-lg border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700">{error}</div>}
+      {error && <div className="rounded-lg border border-red-500/30 bg-red-500/20 px-4 py-3 text-sm text-red-200 backdrop-blur-sm">{error}</div>}
       {success && (
-        <div className="rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-sm text-green-700">{success}</div>
+        <div className="rounded-lg border border-green-500/30 bg-green-500/20 px-4 py-3 text-sm text-green-200 backdrop-blur-sm">{success}</div>
       )}
 
       <div className="flex items-center gap-4">
@@ -186,15 +186,15 @@ export default function AdminFeaturesPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search features..."
-          className="w-full max-w-sm rounded-lg border-2 border-gray-200 px-4 py-2 text-sm"
+          className="w-full max-w-sm rounded-lg border border-gray-700 bg-gray-900/60 px-4 py-2 text-sm text-white placeholder:text-gray-500 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20"
         />
-        <span className="text-sm text-gray-500">{filteredItems.length} items</span>
+        <span className="text-sm text-gray-400">{filteredItems.length} items</span>
       </div>
 
-      {loading && items.length === 0 && <div className="rounded-xl border border-gray-200 bg-white p-6 text-center text-gray-500">Loading...</div>}
+      {loading && items.length === 0 && <div className="rounded-xl border border-gray-700 bg-gray-900/60 p-6 text-center text-gray-400 backdrop-blur-sm">Loading...</div>}
 
       {!loading && filteredItems.length === 0 && (
-        <div className="rounded-xl border border-dashed border-gray-300 bg-white p-8 text-center text-gray-500">
+        <div className="rounded-xl border border-dashed border-gray-700 bg-gray-900/60 p-8 text-center text-gray-400 backdrop-blur-sm">
           No features yet. Click “New Feature” to add your first highlight.
         </div>
       )}
